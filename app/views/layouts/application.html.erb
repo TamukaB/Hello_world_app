@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <!-- Include Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <!-- Include the main stylesheet -->
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbo-track': 'reload' %>
+
+    <!-- Import JavaScript using Importmap -->
+    <%= javascript_importmap_tags %>
+  </head>
+
+      <%= yield %>
+    
+      <% flash.each do |key, message| %>
+        <div class="alert alert-<%= key %>"><%= message %></div>
+      <% end %>
+    </div>
+
+    <footer class="text-center py-4 bg-light mt-4">
+      <p>&copy; 2024 rights reserved.</p>
+    </footer>
+  </body>
+</html>

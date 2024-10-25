@@ -1,0 +1,28 @@
+<h1>Welcome to Game 1</h1>
+<p>Game 1 is the... guess the number game!</p>
+
+<!-- You can add more content, images, or even embed games -->
+<%= image_tag 'guessthenumber.jpg', alt: 'Game 1 Image', width: '300', height: '200' %>
+<p>Its easy, simply guess a number between 1 and 100!</p>
+
+<input type="number" id="guess" />
+<button onclick="checkGuess()">Guess</button>
+<p id="message"></p>
+</div>
+
+<script>
+let randomNumber = Math.floor(Math.random() * 100) + 1;
+
+function checkGuess() {
+    let guess = parseInt(document.getElementById('guess').value);
+    let message = document.getElementById('message');
+
+    if (guess < randomNumber) {
+        message.innerText = "Too low! Try again.";
+    } else if (guess > randomNumber) {
+        message.innerText = "Too high! Try again.";
+    } else {
+        message.innerText = "Congratulations! You guessed the number!";
+    }
+}
+</script>

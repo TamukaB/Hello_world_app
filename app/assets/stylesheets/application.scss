@@ -1,0 +1,66 @@
+// app/assets/stylesheets/application.scss
+
+// Import Bootstrap styles
+@import "bootstrap"; // Note to serve as reminder this should go before the rest of code
+
+// Define your SCSS variables
+$primary-color: #3498db; // Main theme color
+$secondary-color: #2ecc71; // Secondary color
+$light-bg: #f4f4f4; // Light background color
+$text-color: #333; // Default text color
+$font-stack: 'Roboto', sans-serif; // Font stack
+
+// Base Styles
+body {
+    font-family: $font-stack;
+    background-color: $light-bg;
+    color: $text-color;
+    margin: 0;
+    padding: 0;
+}
+
+// Navbar Styles
+.navbar {
+    margin-bottom: 20px;
+
+    .navbar-brand {
+        font-weight: 700;
+    }
+
+    .nav-link {
+        &:hover {
+            color: $primary-color; // Change link color on hover
+        }
+    }
+}
+
+// Container Styles
+.container {
+    margin-top: 20px;
+
+    h1 {
+        color: $primary-color; // Make the heading match the theme
+        font-size: 2.5rem; // Increase heading size
+    }
+
+    p {
+        font-size: 1.2rem; // Increase paragraph font size
+        color: $text-color;
+    }
+}
+
+// Alert Styles
+.alert {
+    margin-top: 10px;
+    border-radius: 5px;
+}
+
+// Modal Styles
+.modal-header {
+    background-color: $primary-color; // Set header background
+    color: white; // White text for modal header
+}
+
+.modal-body {
+    background-color: white; // White background for modal body
+}

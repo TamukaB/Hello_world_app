@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catch the Falling Objects</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+        }
+
+        /* Container to wrap everything */
+        .content {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        h1 {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        p {
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+
+        /* Scoreboard */
+        .scoreboard {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        /* Game container styling */
+        .game-container {
+            position: relative;
+            width: 400px;
+            height: 600px;
+            background-color: #87CEEB;
+            border: 2px solid #000;
+            margin: 20px auto; /* Center the game container */
+        }
+
+        /* Basket styling */
+        .basket {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 60px;
+            height: 40px;
+            background-color: brown;
+            transform: translateX(-50%);
+        }
+
+        /* Falling object styling */
+        .falling-object {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background-color: red;
+            border-radius: 50%;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Content above the game -->
+    <div class="content">
+        <h1>Welcome to Game 2</h1>
+        <p>This game will require arrow keys. Use the arrow keys to move the basket and catch the falling objects!</p>
+        <div class="scoreboard">
+            Score: <span id="score">0</span>
+        </div>
+    </div>
+
+    <!-- Game container -->
+    <div class="game-container">
+        <div id="basket" class="basket"></div>
+    </div>
+
+    <script>
+        // Basket element
+        const basket = document.getElementById('basket');
+        let basketPosition = 50;  // initial position (center)
+        let score = 0; // Initialize score
+        const scoreElement = document.getElementById('score'); // Get score display element
+
+        // Move basket with left/right arrow keys
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowLeft' && basketPosition > 0) {
+                basketPosition -= 5;  // Move left
+                basket.style.left = basketPosition + '%';
+            }
+            if (e.key === 'ArrowRight' && basketPosition < 100) {
+                basketPosition += 5;  // Move right
+                basket.style.left = basketPosition + '%';
+            }
+        });
+
+        // Create falling objects
+        function createFallingObject() {
+            const object = document.createElement('div');
+            object.classList.add('falling-object');
+            object.style.left = Math.random() * 370 + 'px';  // Random x-position
+            object.style.top = '0px';
+            document.querySelector('.game-container').appendChild(object);
+
+            // Animate the object falling down
+            let fallInterval = setInterval(function() {
+                object.style.top = parseInt(object.style.top) + 2 + 'px';  // Move down
+                if (parseInt(object.style.top) > 570) {
+                    object.remove();
+                    clearInterval(fallInterval);
+                }
+
+                // Check if object is caught by the basket
+                checkCatch(object, fallInterval);
+            }, 20);
+        }
+
+        // Check if the falling object is caught
+        function checkCatch(object, fallInterval) {
+            const objectRect = object.getBoundingClientRect();
+            const basketRect = basket.getBoundingClientRect();
+
+            if (
+                objectRect.bottom >= basketRect.top &&  // Falling object reaches the basket
+                objectRect.left < basketRect.right &&
+                objectRect.right > basketRect.left
+            ) {
+                object.remove();  // Remove the object if caught
+                clearInterval(fallInterval);
+
+                // Increment score and update the score display
+                score += 5;
+                scoreElement.textContent = score;
+            }
+        }
+
+        // Start the game by spawning falling objects every 1.5 seconds
+        setInterval(createFallingObject, 1500);
+    </script>
+
+</body>
+</html>

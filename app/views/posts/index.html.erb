@@ -1,0 +1,14 @@
+<h1>Posts</h1>
+<%= link_to 'New Post', new_post_path %>
+
+<% @posts.each do |post| %>
+  <div>
+    <h2><%= link_to post.title, post_path(post) %></h2>
+    <p><%= post.body %></p>
+    <%= link_to 'Edit', edit_post_path(post) %> |
+    
+    <%= form_with model: post, method: :delete do %>
+      <%= submit_tag 'Delete', data: { confirm: 'Are you sure?' } %>
+    <% end %>  
+  </div>
+<% end %>
